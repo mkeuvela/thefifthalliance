@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fifth Alliance</title>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-dark: #0a1a0a;
+    --green-deep: #0d1f0d;
+    --green-mid: #1a3a1a;
+    --green-accent: #2d6a2d;
+    --green-bright: #4a9e4a;
+    --green-glow: #5aba5a;
+    --text-primary: #c8e6c8;
+    --text-secondary: #7aab7a;
+    --text-muted: #4a7a4a;
+    --gold: #b8960c;
+    --gold-light: #d4aa1a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--green-dark);
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+    color: var(--text-primary);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    padding: 3.5rem 1.5rem 2rem;
+    position: relative;
+    border-bottom: 1px solid var(--green-mid);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green-accent), transparent);
+  }
+
+  .band-photo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid var(--green-accent);
+    margin-bottom: 1.2rem;
+    object-fit: cover;
+    filter: grayscale(30%);
+  }
+
+  .band-photo-placeholder {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid var(--green-accent);
+    margin: 0 auto 1.2rem;
+    background: var(--green-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .logo {
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    color: var(--text-primary);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 40px rgba(74, 158, 74, 0.3);
+    margin-bottom: 0.5rem;
+  }
+
+  .tagline {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .bio {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 0.8rem;
+  }
+
+  /* Section titles */
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::before, .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--green-mid));
+  }
+  .section-label::after {
+    background: linear-gradient(90deg, var(--green-mid), transparent);
+  }
+
+  /* Sections */
+  section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--green-mid);
+  }
+
+  /* Spotify */
+  .spotify-embed {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--green-mid);
+  }
+
+  /* YouTube */
+  .yt-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--green-mid);
+  }
+  .yt-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+
+  /* Social buttons */
+  .social-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .social-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--green-deep);
+    border: 1px solid var(--green-mid);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .social-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(74,158,74,0.06), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .social-btn:hover {
+    border-color: var(--green-bright);
+    background: var(--green-mid);
+    transform: translateY(-1px);
+  }
+
+  .social-btn:hover::before { opacity: 1; }
+
+  .social-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .social-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--green-bright);
+  }
+
+  .btn-text { line-height: 1.2; }
+  .btn-action {
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: block;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    margin-bottom: 2px;
+  }
+  .btn-name {
+    font-size: 12px;
+    color: var(--text-primary);
+  }
+
+  /* Followed state */
+  .social-btn.followed {
+    border-color: var(--green-glow);
+    background: rgba(74, 158, 74, 0.08);
+  }
+  .social-btn.followed .btn-action {
+    color: var(--green-glow);
+  }
+
+  /* Pulse animation for call to action */
+  .cta-hint {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.2rem;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.15em;
+    line-height: 2;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  footer a:hover { color: var(--green-bright); }
+
+  /* Entrance animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeIn 0.7s ease forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in:nth-child(1) { animation-delay: 0.1s; }
+  .fade-in:nth-child(2) { animation-delay: 0.2s; }
+  .fade-in:nth-child(3) { animation-delay: 0.3s; }
+  .fade-in:nth-child(4) { animation-delay: 0.4s; }
+
+  @media (max-width: 480px) {
+    .social-grid { grid-template-columns: 1fr; }
+    .logo { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo_green.png" alt="The Fifth Alliance" style="width:90%;max-width:440px;object-fit:contain;margin-bottom:0.8rem;">
+  <div class="tagline">Blackened Doom · Breda, NL</div>
+  <p class="bio">Booking: <a href="mailto:contact@idvi-agency.com" style="color:var(--text-secondary);text-decoration:none;">contact@idvi-agency.com</a></p>
+</header>
+
+<div class="container">
+
+  <!-- Follow -->
+  <section class="fade-in">
+    <div class="section-label">Follow us</div>
+    <p class="cta-hint">Support the alliance — follow us on all platforms</p>
+    <div class="social-grid">
+
+      <a href="https://www.instagram.com/thefifthalliance/" target="_blank" class="social-btn" onclick="markFollowed(this)">
+        <div class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </div>
+        <div class="btn-text">
+          <span class="btn-action">Follow on</span>
+          <span class="btn-name">Instagram</span>
+        </div>
+      </a>
+
+      <a href="https://www.facebook.com/thefifthalliance" target="_blank" class="social-btn" onclick="markFollowed(this)">
+        <div class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </div>
+        <div class="btn-text">
+          <span class="btn-action">Like on</span>
+          <span class="btn-name">Facebook</span>
+        </div>
+      </a>
+
+      <a href="https://open.spotify.com/artist/6qMqxCV4XwR52I4kZVsGOW?action=follow" target="_blank" class="social-btn" onclick="markFollowed(this)">
+        <div class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+          </svg>
+        </div>
+        <div class="btn-text">
+          <span class="btn-action">Follow on</span>
+          <span class="btn-name">Spotify</span>
+        </div>
+      </a>
+
+      <a href="https://www.youtube.com/@thefifthallianceofficial8834?sub_confirmation=1" target="_blank" class="social-btn" onclick="markFollowed(this)">
+        <div class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+          </svg>
+        </div>
+        <div class="btn-text">
+          <span class="btn-action">Subscribe on</span>
+          <span class="btn-name">YouTube</span>
+        </div>
+      </a>
+
+      <a href="https://thefifthalliance.bandcamp.com/album/stenahoria" target="_blank" class="social-btn" onclick="markFollowed(this)">
+        <div class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/>
+          </svg>
+        </div>
+        <div class="btn-text">
+          <span class="btn-action">Follow & pre-order on</span>
+          <span class="btn-name">Bandcamp</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Listen -->
+  <section class="fade-in">
+    <div class="section-label">Listen</div>
+    <div class="spotify-embed">
+      <iframe
+        src="https://open.spotify.com/embed/artist/6qMqxCV4XwR52I4kZVsGOW?utm_source=generator&theme=0"
+        width="100%"
+        height="352"
+        frameBorder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- Watch -->
+  <section class="fade-in">
+    <div class="section-label">Watch</div>
+    <div class="yt-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/p2AODW6hmdg?rel=0&color=white"
+        title="The Fifth Alliance"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div>© The Fifth Alliance · Breda, Netherlands</div>
+  <div style="margin-top:0.5rem;">
+    <a href="mailto:contact@idvi-agency.com">Booking: IDVI Agency</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:thefifthallianceofficial@gmail.com">Band contact</a>
+  </div>
+</footer>
+
+<script>
+function markFollowed(btn) {
+  setTimeout(() => {
+    btn.classList.add('followed');
+    const action = btn.querySelector('.btn-action');
+    if (action) action.textContent = '✓ Done';
+  }, 800);
+}
+</script>
+
+</body>
+</html>
